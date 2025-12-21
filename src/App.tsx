@@ -1,170 +1,81 @@
-import { useState, useEffect } from 'react';
-import { Toaster } from './components/ui/sonner';
-import { LandingPage } from './components/LandingPage';
-import { AuthPage } from './components/AuthPage';
-import { Dashboard } from './components/Dashboard';
-import { CVFixFlow } from './components/CVFixFlow';
-import { CVOutput } from './components/CVOutput';
-import { CoverLetterGenerator } from './components/CoverLetterGenerator';
-import { InterviewPrep } from './components/InterviewPrep';
-import { BuyPoints } from './components/BuyPoints';
-import { ReferralPage } from './components/ReferralPage';
-import { Settings } from './components/Settings';
-import { JobApplication } from './components/JobApplication';
-import { auth, initializeSampleData } from './lib/mockBackend';
+// src/App.tsx
+import { useEffect } from "react";
+import { Toaster } from "./components/ui/sonner";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
-type Page = 
-  | 'landing' 
-  | 'auth' 
-  | 'dashboard' 
-  | 'cv-fix' 
-  | 'cv-output' 
-  | 'cover-letter' 
-  | 'interview-prep'
-  | 'job-application'
-  | 'buy-points' 
-  | 'referral' 
-  | 'settings'
-  | 'history'
-  | 'notifications';
+import { LandingPage } from "./components/LandingPage";
+import { AuthPage } from "./components/AuthPage";
+import { Dashboard } from "./components/Dashboard";
+import { CVFixFlow } from "./components/CVFixFlow";
+import { CVOutput } from "./components/CVOutput";
+import { CoverLetterGenerator } from "./components/CoverLetterGenerator";
+import { InterviewPrep } from "./components/InterviewPrep";
+import { BuyPoints } from "./components/BuyPoints";
+import { ReferralPage } from "./components/ReferralPage";
+import { Settings } from "./components/Settings";
+import { JobApplication } from "./components/JobApplication";
+
+import { auth, initializeSampleData } from "./lib/mockBackend";
+import { ProtectedLayout } from "./components/ProtectedLayout";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('landing');
-  const [cvOutputId, setCvOutputId] = useState<string>('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
+  // Initialize data and handle initial redirects
   useEffect(() => {
-    // Initialize sample data
     initializeSampleData();
 
-    // Check if user is already logged in
     const user = auth.getCurrentUser();
-    if (user) {
-      setIsAuthenticated(true);
-      setCurrentPage('dashboard');
+    const isOnPublicPage =
+      location.pathname === "/" || location.pathname === "/auth";
+
+    if (user && isOnPublicPage) {
+      navigate("/dashboard", { replace: true });
     }
-  }, []);
+  }, [navigate, location.pathname]);
 
   const handleAuthSuccess = () => {
-    setIsAuthenticated(true);
-    setCurrentPage('dashboard');
+    // Redirect to intended page after login, fallback to dashboard
+    const from = (location.state as any)?.from?.pathname || "/dashboard";
+    navigate(from);
   };
 
   const handleLogout = () => {
     auth.logout();
-    setIsAuthenticated(false);
-    setCurrentPage('landing');
-  };
-
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page as Page);
-  };
-
-  const handleCVComplete = (cvId: string) => {
-    setCvOutputId(cvId);
-    setCurrentPage('cv-output');
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'landing':
-        return (
-          <LandingPage 
-            onGetStarted={() => setCurrentPage('auth')}
-            onShowSample={() => {
-              // In real app, show sample CV output
-              alert('Sample output would be displayed here');
-            }}
-          />
-        );
-
-      case 'auth':
-        return <AuthPage onSuccess={handleAuthSuccess} />;
-
-      case 'dashboard':
-        return (
-          <Dashboard 
-            onNavigate={handleNavigate}
-            onLogout={handleLogout}
-          />
-        );
-
-      case 'cv-fix':
-        return (
-          <CVFixFlow
-            onBack={() => setCurrentPage('dashboard')}
-            onComplete={handleCVComplete}
-            onNavigate={handleNavigate}
-          />
-        );
-
-      case 'cv-output':
-        return (
-          <CVOutput
-            cvId={cvOutputId}
-            onBack={() => setCurrentPage('dashboard')}
-            onNavigate={handleNavigate}
-          />
-        );
-
-      case 'cover-letter':
-        return (
-          <CoverLetterGenerator
-            onBack={() => setCurrentPage('dashboard')}
-            onNavigate={handleNavigate}
-          />
-        );
-
-      case 'interview-prep':
-        return (
-          <InterviewPrep
-            onBack={() => setCurrentPage('dashboard')}
-            onNavigate={handleNavigate}
-          />
-        );
-
-      case 'job-application':
-        return (
-          <JobApplication
-            onBack={() => setCurrentPage('dashboard')}
-          />
-        );
-
-      case 'buy-points':
-        return (
-          <BuyPoints
-            onBack={() => setCurrentPage('dashboard')}
-          />
-        );
-
-      case 'referral':
-        return (
-          <ReferralPage
-            onBack={() => setCurrentPage('dashboard')}
-          />
-        );
-
-      case 'settings':
-        return (
-          <Settings
-            onBack={() => setCurrentPage('dashboard')}
-            onLogout={handleLogout}
-          />
-        );
-
-      default:
-        return (
-          <Dashboard 
-            onNavigate={handleNavigate}
-            onLogout={handleLogout}
-          />
-        );
-    }
+    navigate("/", { replace: true });
   };
 
   return (
     <>
-      {renderPage()}
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/auth"
+          element={<AuthPage onSuccess={handleAuthSuccess} />}
+        />
+
+        <Route element={<ProtectedLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/cv-fix" element={<CVFixFlow />} />
+          <Route path="/cv-output/:cvId" element={<CVOutput />} />
+          <Route path="/cover-letter" element={<CoverLetterGenerator />} />
+          <Route path="/interview-prep" element={<InterviewPrep />} />
+          <Route path="/job-application" element={<JobApplication />} />
+          <Route path="/buy-points" element={<BuyPoints />} />
+          <Route path="/referral" element={<ReferralPage />} />
+          <Route path="/settings" element={<Settings />} />
+        </Route>
+
+        <Route
+          path="*"
+          element={
+            <div className="p-8 text-center text-2xl">Page Not Found</div>
+          }
+        />
+      </Routes>
+
       <Toaster position="top-right" />
     </>
   );

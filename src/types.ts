@@ -1,4 +1,4 @@
-// Type definitions for ResumeGenie platform
+// Type definitions for FlowJobAi platform
 
 export interface User {
   id: string;
@@ -21,12 +21,12 @@ export interface CVDocument {
   originalContent: string;
   fixedContent?: string;
   jobDescription?: string;
-  fixType?: 'basic' | 'smart' | 'full';
+  fixType?: "basic" | "smart" | "full";
   matchScore?: number;
   improvements?: string[];
   createdAt: string;
-  status: 'pending' | 'processing' | 'completed';
-  fileType: 'pdf' | 'docx' | 'text';
+  status: "pending" | "processing" | "completed";
+  fileType: "pdf" | "docx" | "text";
 }
 
 export interface CoverLetter {
@@ -64,7 +64,7 @@ export interface JobApplication {
   company: string;
   jobDescription: string;
   appliedAt: string;
-  status: 'applied' | 'reviewing' | 'interview' | 'rejected' | 'accepted';
+  status: "applied" | "reviewing" | "interview" | "rejected" | "accepted";
   notes?: string;
 }
 
@@ -72,7 +72,7 @@ export interface PointsTransaction {
   id: string;
   userId: string;
   amount: number;
-  type: 'purchase' | 'referral' | 'welcome' | 'usage' | 'bonus';
+  type: "purchase" | "referral" | "welcome" | "usage" | "bonus";
   description: string;
   createdAt: string;
   balance: number;
@@ -82,7 +82,7 @@ export interface Referral {
   id: string;
   referrerId: string;
   referredEmail: string;
-  status: 'pending' | 'completed';
+  status: "pending" | "completed";
   pointsEarned: number;
   createdAt: string;
 }
@@ -90,7 +90,7 @@ export interface Referral {
 export interface Notification {
   id: string;
   userId: string;
-  type: 'info' | 'success' | 'warning' | 'promo';
+  type: "info" | "success" | "warning" | "promo";
   title: string;
   message: string;
   read: boolean;
@@ -107,7 +107,7 @@ export interface PricingPackage {
 }
 
 export type FixType = {
-  id: 'basic' | 'smart' | 'full';
+  id: "basic" | "smart" | "full";
   name: string;
   description: string;
   points: number;

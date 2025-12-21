@@ -1,4 +1,4 @@
-# ResumeGenie - Smart CV & Job Application Assistant
+# FlowJobAi - Smart CV & Job Application Assistant
 
 A comprehensive web platform for Nigerian job seekers to optimize CVs, generate cover letters, prepare for interviews, and track job applications.
 
@@ -7,6 +7,7 @@ A comprehensive web platform for Nigerian job seekers to optimize CVs, generate 
 ### Core Features
 
 1. **Landing Page**
+
    - Compelling hero section with clear value proposition
    - "How It Works" section with 4-step process
    - Success stories and testimonials
@@ -14,12 +15,14 @@ A comprehensive web platform for Nigerian job seekers to optimize CVs, generate 
    - Mobile-responsive design
 
 2. **Authentication & Onboarding**
+
    - Email/password signup and login
    - Welcome bonus: 1 free point for new users
    - Referral code support during signup
    - Persistent session management
 
 3. **Dashboard**
+
    - Personalized greeting with user name
    - Real-time points balance display
    - Quick action cards for all features
@@ -29,6 +32,7 @@ A comprehensive web platform for Nigerian job seekers to optimize CVs, generate 
    - Streak tracking for engagement
 
 4. **CV Fix Flow**
+
    - Step 1: Upload CV (PDF/DOCX) or paste text
    - Step 2: Paste job description
    - Step 3: Choose fix type:
@@ -41,12 +45,14 @@ A comprehensive web platform for Nigerian job seekers to optimize CVs, generate 
    - Download as PDF or DOCX
 
 5. **Cover Letter Generator** (1 point)
+
    - Input job title, company, and job description
    - AI-generated professional cover letter
    - Copy to clipboard or download
    - Personalized to user profile
 
 6. **Interview Preparation** (1 point)
+
    - Job-specific interview questions
    - Suggested answers with STAR method
    - Tips for each question
@@ -54,12 +60,14 @@ A comprehensive web platform for Nigerian job seekers to optimize CVs, generate 
    - Downloadable prep guide
 
 7. **Job Application Tracker**
+
    - Track all job applications in one place
    - Update application status (Applied, Reviewing, Interview, Rejected, Accepted)
    - Application statistics dashboard
    - Notes and comments per application
 
 8. **Points & Payment System**
+
    - Flexible pay-as-you-go pricing:
      - ₦1,000 → 10 points
      - ₦2,000 → 21 points (+1 bonus)
@@ -70,6 +78,7 @@ A comprehensive web platform for Nigerian job seekers to optimize CVs, generate 
    - Points never expire
 
 9. **Referral System**
+
    - Unique referral code for each user
    - Earn 2 points per successful referral
    - Referral link sharing via email/WhatsApp
@@ -86,6 +95,7 @@ A comprehensive web platform for Nigerian job seekers to optimize CVs, generate 
 ## 🏗️ Technical Architecture
 
 ### Frontend
+
 - **React** with TypeScript
 - **Tailwind CSS** for styling
 - **shadcn/ui** component library
@@ -93,6 +103,7 @@ A comprehensive web platform for Nigerian job seekers to optimize CVs, generate 
 - **Sonner** for toast notifications
 
 ### State Management
+
 - Local storage for data persistence
 - React hooks for state management
 - Mock backend services
@@ -203,7 +214,7 @@ This is a Figma Make project. No installation required - the app runs directly i
 
 ### Usage
 
-1. **Landing Page**: Visit the homepage to learn about ResumeGenie
+1. **Landing Page**: Visit the homepage to learn about FlowJobAi
 2. **Sign Up**: Create an account to get 1 free point
 3. **Dashboard**: Access all features from the dashboard
 4. **Fix Your CV**: Upload a CV and job description to get started
@@ -213,6 +224,7 @@ This is a Figma Make project. No installation required - the app runs directly i
 ### Demo Accounts
 
 For testing, you can create a new account or use the demo flow:
+
 1. Click "Get Started"
 2. Fill in signup form
 3. Optional: Use a referral code from another user
@@ -229,13 +241,16 @@ For testing, you can create a new account or use the demo flow:
 ## 🔧 Future Enhancements
 
 ### Backend Integration Ready
+
 The app is structured to easily integrate with:
+
 - **Supabase** for authentication and database
 - **Paystack/Flutterwave** for payments
 - **OpenAI/Claude API** for actual AI-powered CV fixing
 - **Email services** for notifications
 
 ### Planned Features
+
 - [ ] Real PDF/DOCX parsing
 - [ ] Advanced CV templates library
 - [ ] Job board integration
@@ -250,18 +265,21 @@ The app is structured to easily integrate with:
 ## 🎨 Design System
 
 ### Colors
+
 - **Primary**: Purple gradient (#7C3AED to #3B82F6)
 - **Success**: Green (#10B981)
 - **Warning**: Orange (#F59E0B)
 - **Error**: Red (#EF4444)
 
 ### Typography
+
 - Responsive font sizes
 - Medium weight for headings
 - Normal weight for body text
 - Optimized line heights
 
 ### Components
+
 - Cards for content grouping
 - Badges for status indicators
 - Buttons with multiple variants
@@ -272,6 +290,7 @@ The app is structured to easily integrate with:
 ## 📊 Analytics & Metrics
 
 Track key metrics:
+
 - User signups
 - Points purchased
 - CV fixes by type
@@ -284,6 +303,7 @@ Track key metrics:
 ## 🔒 Security Notes
 
 **Important**: This is a demo/prototype application using localStorage. For production:
+
 1. Implement proper backend authentication
 2. Secure API endpoints
 3. Encrypt sensitive data
@@ -298,7 +318,7 @@ This project is created for demonstration purposes.
 
 ## 🤝 Support
 
-For questions or support, contact the ResumeGenie team.
+For questions or support, contact the FlowJobAi team.
 
 ---
 

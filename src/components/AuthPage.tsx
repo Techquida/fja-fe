@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Card } from './ui/card';
-import { Sparkles, Mail, Lock, User, Gift } from 'lucide-react';
-import { auth } from '../lib/mockBackend';
-import { toast } from 'sonner@2.0.3';
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Card } from "./ui/card";
+import { Sparkles, Mail, Lock, User, Gift } from "lucide-react";
+import { auth } from "../lib/mockBackend";
+import { toast } from "sonner";
 
 interface AuthPageProps {
   onSuccess: () => void;
@@ -14,10 +14,10 @@ interface AuthPageProps {
 export function AuthPage({ onSuccess }: AuthPageProps) {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    referralCode: ''
+    name: "",
+    email: "",
+    password: "",
+    referralCode: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -28,23 +28,28 @@ export function AuthPage({ onSuccess }: AuthPageProps) {
     try {
       if (isLogin) {
         await auth.login(formData.email, formData.password);
-        toast.success('Welcome back! 👋');
+        toast.success("Welcome back! 👋");
       } else {
-        await auth.signup(formData.name, formData.email, formData.password, formData.referralCode);
-        toast.success('Account created! You got 1 free point! 🎉');
+        await auth.signup(
+          formData.name,
+          formData.email,
+          formData.password,
+          formData.referralCode
+        );
+        toast.success("Account created! You got 1 free point! 🎉");
       }
       onSuccess();
     } catch (error: any) {
-      toast.error(error.message || 'Something went wrong');
+      toast.error(error.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -55,9 +60,9 @@ export function AuthPage({ onSuccess }: AuthPageProps) {
           <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-3xl mb-2">ResumeGenie</h1>
+          <h1 className="text-3xl mb-2">FlowJobAi</h1>
           <p className="text-gray-600">
-            {isLogin ? 'Welcome back!' : 'Start your journey to your dream job'}
+            {isLogin ? "Welcome back!" : "Start your journey to your dream job"}
           </p>
         </div>
 
@@ -147,13 +152,12 @@ export function AuthPage({ onSuccess }: AuthPageProps) {
             </div>
           )}
 
-          <Button 
-            type="submit" 
-            className="w-full" 
-            size="lg"
-            disabled={loading}
-          >
-            {loading ? 'Please wait...' : isLogin ? 'Sign In' : 'Create Account'}
+          <Button type="submit" className="w-full" size="lg" disabled={loading}>
+            {loading
+              ? "Please wait..."
+              : isLogin
+              ? "Sign In"
+              : "Create Account"}
           </Button>
         </form>
 
@@ -163,7 +167,9 @@ export function AuthPage({ onSuccess }: AuthPageProps) {
             onClick={() => setIsLogin(!isLogin)}
             className="text-purple-600 hover:underline text-sm"
           >
-            {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
+            {isLogin
+              ? "Don't have an account? Sign up"
+              : "Already have an account? Sign in"}
           </button>
         </div>
 
