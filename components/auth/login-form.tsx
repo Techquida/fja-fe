@@ -1,27 +1,31 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Loader2, Mail, Lock } from "lucide-react"
-import Link from "next/link"
-import { useState } from "react"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Loader2, Mail, Lock } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 interface LoginFormProps {
-  onSubmit?: (email: string, password: string) => void
-  isLoading?: boolean
+  onSubmit?: (email: string, password: string) => void;
+  isLoading?: boolean;
 }
 
 export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit?.(email, password)
-  }
+    e.preventDefault();
+    onSubmit?.(email, password);
+    router.push("/dashboard");
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -44,7 +48,10 @@ export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label htmlFor="password">Password</Label>
-          <Link href="/forgot-password" className="text-sm text-primary hover:text-primary/80 transition-colors">
+          <Link
+            href="/forgot-password"
+            className="text-sm text-primary hover:text-primary/80 transition-colors"
+          >
             Forgot password?
           </Link>
         </div>
@@ -62,7 +69,11 @@ export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
         </div>
       </div>
 
-      <Button type="submit" className="w-full h-12 bg-primary hover:bg-primary/90" disabled={isLoading}>
+      <Button
+        type="submit"
+        className="w-full h-12 bg-primary hover:bg-primary/90"
+        disabled={isLoading}
+      >
         {isLoading ? (
           <>
             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -78,7 +89,9 @@ export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
           <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-background text-muted-foreground">or continue with</span>
+          <span className="px-4 bg-background text-muted-foreground">
+            or continue with
+          </span>
         </div>
       </div>
 
@@ -114,10 +127,13 @@ export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
 
       <p className="text-center text-sm text-muted-foreground">
         {"Don't have an account? "}
-        <Link href="/register" className="text-primary hover:text-primary/80 transition-colors font-medium">
+        <Link
+          href="/register"
+          className="text-primary hover:text-primary/80 transition-colors font-medium"
+        >
           Sign up
         </Link>
       </p>
     </form>
-  )
+  );
 }
